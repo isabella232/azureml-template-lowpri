@@ -3,7 +3,7 @@ import argparse
 import subprocess
 from azureml.core import Workspace
 
-# experiment name 
+# experiment name
 experiment_name = "azureml-template-lowpri"
 
 # setup argparse
