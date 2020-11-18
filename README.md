@@ -82,7 +82,7 @@ Modify all files as needed.
 
 - [`.github/workflows/smoke.yml`](.github/workflows/smoke.yml) runs on every PR and push to `main` to check code format
 - [`.github/workflows/cleanup.yml`](.github/workflows/cleanup.yml) runs daily and can be used to cleanup AML resources
-- [`.github/workflows/retry.yml'](.github/workflows/retry.yml) runs the retry script hourly
+- [`.github/workflows/retry.yml`](.github/workflows/retry.yml) runs the retry script hourly
 - [`.github/workflows/run-workflows.yml`](.github/workflows/run-workflows.yml) runs a ml workflow every two hours and push/PR to `main` (with changes)
 
 **Other**:
