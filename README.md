@@ -1,12 +1,12 @@
 # Azure Machine Learning (AML) Template
 
-[![run-workflows-badge](https://github.com/Azure/azureml-template/workflows/run-workflows/badge.svg)](https://github.com/Azure/azureml-template/actions?query=workflow%3Arun-workflows)
-[![cleanup](https://github.com/Azure/azureml-template/workflows/cleanup/badge.svg)](https://github.com/Azure/azureml-template/actions?query=workflow%3Acleanup)
-[![smoke](https://github.com/Azure/azureml-template/workflows/smoke/badge.svg)](https://github.com/Azure/azureml-template/actions?query=workflow%3Asmoke)
+[![run-workflows-badge](https://github.com/Azure/azureml-template-lowpri/workflows/run-workflows/badge.svg)](https://github.com/Azure/azureml-template/actions?query=workflow%3Arun-workflows)
+[![cleanup](https://github.com/Azure/azureml-template-lowpri/workflows/cleanup/badge.svg)](https://github.com/Azure/azureml-template/actions?query=workflow%3Acleanup)
+[![smoke](https://github.com/Azure/azureml-template-lowpri/workflows/smoke/badge.svg)](https://github.com/Azure/azureml-template/actions?query=workflow%3Asmoke)
 [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![license: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
-Welcome to the Azure Machine Learning (AML) template repository!
+Welcome to the Azure Machine Learning (AML) lowpri template repository!
 
 ## Prerequisites
 
@@ -19,7 +19,8 @@ Click "Use this template" above and create a repository.
 
 Follow the setup guide below to add your Azure credentials and create required Azure resources. At the end, you will have a repository with:
 
-- simple LightGBM training workflow running every 2 hours and on push/PR
+- 8xV100 (2 nodes, 4 gpus/node) deepspeed training on lowpri cluster every 6 hours and on push/PR
+- automated retry on preempted or failed jobs every hour
 - code format check on push/PR
 - resource cleanup script running nightly
 
@@ -37,14 +38,14 @@ Second, create the Azure resource group and required AML resources:
 python setup-workspace.py --subscription-id $ID
 ```
 
-This will create a resource group named `azureml-template`, a workspace named `default`, and a cluster named `cpu-cluster`. Edit `setup-workspace.py` as needed. If you change the names, ensure you change corresponding names in the `.github/workflows` files and in the third step below.
+This will create a resource group named `azureml-template-lowpri`, a workspace named `default`, and a cluster named `gpu-cluster`. Edit `setup-workspace.py` as needed. If you change the names, ensure you change corresponding names in the `.github/workflows` files and in the third step below.
 
 Third, create a service principal for the resource group:
 
 ```console
-az ad sp create-for-rbac --name "azureml-template" \
+az ad sp create-for-rbac --name "azureml-template-lowpri" \
                          --role contributor \
-                         --scopes /subscriptions/$ID/resourceGroups/azureml-template \
+                         --scopes /subscriptions/$ID/resourceGroups/azureml-template-lowpri \
                          --sdk-auth
 ```
 
@@ -70,7 +71,6 @@ Adapt this template to automate the entire ML lifecycle on GitHub, using AML for
 |-|-|
 |`.cloud`|cloud templates|
 |`.github`|GitHub specific files like Actions workflow yaml definitions and issue templates|
-|`notebooks`|interactive jupyter notebooks for iterative ML development|
 |`workflows`|self-contained directories of job/workflow to be run|
 
 ## GitHub Actions
@@ -90,7 +90,6 @@ Modify all files as needed.
 - [`cleanup.py`](cleanup.py) can be modified for nightly workspace cleanup tasks
 - [`workflows/basic/job.py`](workflows/basic/job.py) is the AML control code
 - [`workflows/basic/src/train.py`](workflows/basic/src/train.py) is the ML training script with mlflow tracking
-- [`workflows/basic/requirements.txt`](workflows/basic/requirements.txt) specifies required pip packages for the training script
 
 ## Reference
 

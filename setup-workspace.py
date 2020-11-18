@@ -8,17 +8,18 @@ from azureml.core.compute import ComputeTarget, AmlCompute, AksCompute
 parser = argparse.ArgumentParser()
 parser.add_argument("--subscription-id", type=str, default=None)
 parser.add_argument("--workspace-name", type=str, default="default")
-parser.add_argument("--resource-group", type=str, default="azureml-template")
+parser.add_argument("--resource-group", type=str, default="azureml-template-lowpri")
 parser.add_argument("--location", type=str, default="eastus")
 args = parser.parse_args()
 
 # define aml compute target(s) to create
 amlcomputes = {
-    "cpu-cluster": {
-        "vm_size": "STANDARD_DS3_V2",
+    "gpu-cluster": {
+        "vm_size": "STANDARD_NC24S_V3",
         "min_nodes": 0,
-        "max_nodes": 3,
+        "max_nodes": 2,
         "idle_seconds_before_scaledown": 1200,
+        "vm_priority": "lowpriority",
     }
 }
 
