@@ -1,9 +1,9 @@
 # Azure Machine Learning (AML) Template
 
-[![run-workflows-badge](https://github.com/Azure/azureml-template-lowpri/workflows/run-workflows/badge.svg)](https://github.com/Azure/azureml-template/actions?query=workflow%3Arun-workflows)
-[![retry](https://github.com/Azure/azureml-template-lowpri/workflows/retry/badge.svg)](https://github.com/Azure/azureml-template/actions?query=retry)
-[![cleanup](https://github.com/Azure/azureml-template-lowpri/workflows/cleanup/badge.svg)](https://github.com/Azure/azureml-template/actions?query=workflow%3Acleanup)
-[![smoke](https://github.com/Azure/azureml-template-lowpri/workflows/smoke/badge.svg)](https://github.com/Azure/azureml-template/actions?query=workflow%3Asmoke)
+[![run-workflows-badge](https://github.com/Azure/azureml-template-lowpri/workflows/run-workflows/badge.svg)](https://github.com/Azure/azureml-template-lowpri/actions?query=workflow%3Arun-workflows)
+[![retry](https://github.com/Azure/azureml-template-lowpri/workflows/retry/badge.svg)](https://github.com/Azure/azureml-template-lowpri/actions?query=retry)
+[![cleanup](https://github.com/Azure/azureml-template-lowpri/workflows/cleanup/badge.svg)](https://github.com/Azure/azureml-template-lowpri/actions?query=workflow%3Acleanup)
+[![smoke](https://github.com/Azure/azureml-template-lowpri/workflows/smoke/badge.svg)](https://github.com/Azure/azureml-template-lowpri/actions?query=workflow%3Asmoke)
 [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![license: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
