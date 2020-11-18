@@ -82,13 +82,15 @@ Modify all files as needed.
 
 - [`.github/workflows/smoke.yml`](.github/workflows/smoke.yml) runs on every PR and push to `main` to check code format
 - [`.github/workflows/cleanup.yml`](.github/workflows/cleanup.yml) runs daily and can be used to cleanup AML resources
-- [`.github/workflows/run-workflows.yml`](.github/workflows/run-workflows.yml) runs a ml workflow every two hours and push/PR to `main`
+- [`.github/workflows/retry.yml'](.github/workflows/retry.yml) runs the retry script hourly
+- [`.github/workflows/run-workflows.yml`](.github/workflows/run-workflows.yml) runs a ml workflow every two hours and push/PR to `main` (with changes)
 
 **Other**:
 
 - [`requirements.txt`](requirements.txt) specifies required pip packages for GitHub actions
 - [`setup-workspace.py`](setup-workspace.py) can be modified for workspace and resource setup
 - [`cleanup.py`](cleanup.py) can be modified for nightly workspace cleanup tasks
+- [`retry.py`](retry.py) can be modified to edit retry logic
 - [`workflows/basic/job.py`](workflows/basic/job.py) is the AML control code
 - [`workflows/basic/src/train.py`](workflows/basic/src/train.py) is the ML training script with mlflow tracking
 
