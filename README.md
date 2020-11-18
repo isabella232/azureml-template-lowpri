@@ -19,7 +19,7 @@ Click "Use this template" above and create a repository.
 
 Follow the setup guide below to add your Azure credentials and create required Azure resources. At the end, you will have a repository with:
 
-- 8xV100 (2 nodes, 4 gpus/node) deepspeed training on lowpri cluster every 6 hours and on push/PR
+- 8xV100 (2 nodes, 4 gpus/node) deepspeed training on lowpri cluster every 12 hours and on push/PR
 - automated retry on preempted or failed jobs every hour
 - code format check on push/PR
 - resource cleanup script running nightly
