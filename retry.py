@@ -17,8 +17,9 @@ ws = Workspace.from_config()
 exp = ws.experiments[experiment_name]
 
 for run in exp.get_runs():
-    print(run.status)
-    if run.status in [
+    status = run.get_status()
+    print(status)
+    if status in [
         "Completed",
         "Running",
         "Queued",
@@ -28,7 +29,7 @@ for run in exp.get_runs():
         "NotStarted",
     ]:
         break
-    elif run.status in ["Failed", "Canceled", "CancelRequested", "NotResponding"]:
+    elif status in ["Failed", "Canceled", "CancelRequested", "NotResponding"]:
         cmd = ["python", "workflows/basic/job.py"]
         res = subprocess.run(cmd, capture_output=True)
         print(res)
