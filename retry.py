@@ -18,7 +18,15 @@ exp = ws.experiments[experiment_name]
 
 for run in exp.get_runs():
     print(run.status)
-    if run.status in ["Completed", "Running", "Queued", "Starting", "Preparing", "Finalizing", "NotStarted"]:
+    if run.status in [
+        "Completed",
+        "Running",
+        "Queued",
+        "Starting",
+        "Preparing",
+        "Finalizing",
+        "NotStarted",
+    ]:
         break
     elif run.status in ["Failed", "Canceled", "CancelRequested", "NotResponding"]:
         cmd = ["python", "workflows/basic/job.py"]
