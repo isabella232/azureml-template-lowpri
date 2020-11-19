@@ -21,6 +21,7 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 from torch.utils.data import random_split
+from pytorch_lightning.loggers import TensorBoardLogger
 
 try:
     from torchvision.datasets.mnist import MNIST
@@ -50,6 +51,7 @@ class LitAutoEncoder(pl.LightningModule):
         z = self.encoder(x)
         x_hat = self.decoder(z)
         loss = F.mse_loss(x_hat, x)
+        self.log("loss", loss)
         return loss
 
     def configure_optimizers(self):
@@ -66,6 +68,7 @@ def cli_main():
     parser = ArgumentParser()
     parser.add_argument("--batch_size", default=32, type=int)
     parser.add_argument("--hidden_dim", type=int, default=128)
+    parser.add_argument("--logdir", type=str, default="./logs")
     parser = pl.Trainer.add_argparse_args(parser)
     args = parser.parse_args()
 
@@ -86,9 +89,14 @@ def cli_main():
     model = LitAutoEncoder()
 
     # ------------
+    # logging
+    # ------------
+    tb_logger = TensorBoardLogger(args.logdir)
+
+    # ------------
     # training
     # ------------
-    trainer = pl.Trainer.from_argparse_args(args)
+    trainer = pl.Trainer.from_argparse_args(args, logger=tb_logger)
     trainer.fit(model, train_loader, val_loader)
 
     # ------------

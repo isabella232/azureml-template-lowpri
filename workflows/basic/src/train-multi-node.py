@@ -21,6 +21,7 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 from torch.utils.data import random_split
+from azureml_env_adapter import set_environment_variables
 
 try:
     from torchvision.datasets.mnist import MNIST
@@ -68,6 +69,9 @@ def cli_main():
     parser.add_argument("--hidden_dim", type=int, default=128)
     parser = pl.Trainer.add_argparse_args(parser)
     args = parser.parse_args()
+
+    # set azureml env vars for multi-node ddp
+    set_environment_variables(single_node=int(args.num_nodes) > 1)
 
     # ------------
     # data

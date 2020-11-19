@@ -21,6 +21,9 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 from torch.utils.data import random_split
+from pytorch_lightning.loggers import MLFlowLogger
+import mlflow
+from azureml.core import Run
 
 try:
     from torchvision.datasets.mnist import MNIST
@@ -50,6 +53,7 @@ class LitAutoEncoder(pl.LightningModule):
         z = self.encoder(x)
         x_hat = self.decoder(z)
         loss = F.mse_loss(x_hat, x)
+        self.log("loss", loss, on_epoch=True, on_step=False)
         return loss
 
     def configure_optimizers(self):
@@ -86,9 +90,23 @@ def cli_main():
     model = LitAutoEncoder()
 
     # ------------
+    # logging
+    # ------------
+    # get azureml run object
+    run = Run.get_context()
+    # get the tracking uri for the azureml workspace
+    mlflow_uri = run.experiment.workspace.get_mlflow_tracking_uri()
+    # get the azureml experiment name
+    exp_name = run.experiment.name
+
+    mlf_logger = MLFlowLogger(experiment_name=exp_name, tracking_uri=mlflow_uri)
+    # link the mlflowlogger run ID to the azureml run ID
+    mlf_logger._run_id = run.id
+
+    # ------------
     # training
     # ------------
-    trainer = pl.Trainer.from_argparse_args(args)
+    trainer = pl.Trainer.from_argparse_args(args, logger=mlf_logger)
     trainer.fit(model, train_loader, val_loader)
 
     # ------------
