@@ -28,6 +28,7 @@ for run in exp.get_runs():
         "Finalizing",
         "NotStarted",
     ]:
+        print("Job completed successfully or is currently running. Exiting...")
         break
     elif status in ["Failed", "Canceled", "CancelRequested", "NotResponding"]:
         cmd = ["python", "workflows/basic/job.py"]
