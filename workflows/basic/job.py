@@ -5,10 +5,10 @@ from azureml.core import ScriptRunConfig, Experiment, Environment
 from azureml.core.runconfig import MpiConfiguration
 
 # settings
-experiment_name = "azureml-template-lowpri"
+experiment_name = "azureml-template-lowpri-pl"
 compute_name = "gpu-cluster"
 environment_name = "pt-lightning"
-environment_file = "envirronment.yml"
+environment_file = "environment.yml"
 source_dir = "src"
 entry_script = "train-multi-node.py"
 num_nodes = 2
