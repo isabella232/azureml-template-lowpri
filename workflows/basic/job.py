@@ -18,10 +18,10 @@ prefix = Path(__file__).parent
 
 # get relative paths
 source_dir = str(prefix.joinpath(source_dir))
-environment_file = str(prefix.joinpath(environment_file)
+environment_file = str(prefix.joinpath(environment_file))
 
 # create environment
-env = Environment.from_conda_specification(environment_name, environment_file
+env = Environment.from_conda_specification(environment_name, environment_file)
 
 # specify a GPU base image
 env.docker.enabled = True
@@ -30,7 +30,7 @@ env.docker.base_image = (
 )
 
 # script arguments
-arguments=[
+arguments = [
     "--max_epochs",
     100,
     "--gpus",
@@ -39,7 +39,7 @@ arguments=[
     "ddp",
     "--num_nodes",
     num_nodes,
-],
+]
 
 # create job config
 mpi_config = MpiConfiguration(node_count=2, process_count_per_node=4)
