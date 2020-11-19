@@ -1,11 +1,13 @@
 channels:
   - conda-forge
 dependencies:
-  - python=3.7
+  - python=3.8
   - pip
   - pip:
-    - azureml-defaults
     - torch==1.6.0
     - torchvision==0.7.0
     - pytorch-lightning==1.0.4
+    - tqdm
+    - azureml-core
+    - azureml-dataprep
     - azureml-mlflow
