@@ -18,7 +18,6 @@ exp = ws.experiments[experiment_name]
 
 for run in exp.get_runs():
     status = run.get_status()
-    print(status)
     if status in [
         "Completed",
         "Running",
@@ -28,9 +27,11 @@ for run in exp.get_runs():
         "Finalizing",
         "NotStarted",
     ]:
-        print("Job completed successfully or is currently running. Exiting...")
+        print(f"Job status: {status}. Exiting...")
         break
     elif status in ["Failed", "Canceled", "CancelRequested", "NotResponding"]:
+        print(f"Job status: {status}. Retrying job...")
         cmd = ["python", "workflows/basic/job.py"]
         res = subprocess.run(cmd, capture_output=True)
         print(res)
+        break
